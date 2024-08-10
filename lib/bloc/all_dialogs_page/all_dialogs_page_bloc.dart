@@ -10,6 +10,7 @@ class AllDialogsPageBloc
     on<LoadingUserEvent>((event, emit) {
       final users = _getUserContacts('0');
       print(users);
+      print('+');
       if (users == null) {
         emit(AllDialogsPageErrorState());
       } else {
