@@ -59,7 +59,7 @@ class _MainPageState extends State<MainPage> {
         body: SafeArea(
           child: BlocBuilder<SignInPageBloc, SignInPageState>(
               builder: (context, state) {
-                final bloc = context.read<SignInPageBloc>();
+            final bloc = context.read<SignInPageBloc>();
             if (state is UserInfoState) {
               print(state.personalInfo.name);
               Navigator.of(context).pushNamed(
@@ -68,9 +68,10 @@ class _MainPageState extends State<MainPage> {
             }
             if (state is SignInPageErrorState) {
               bloc.add(ResetEvent());
-              _showMyDialog(state.errorMessage);
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _showMyDialog(state.errorMessage);
+              });
               print('+');
-
             }
             return ListView(
               children: [
