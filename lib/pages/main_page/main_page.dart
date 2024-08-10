@@ -60,21 +60,22 @@ class _MainPageState extends State<MainPage> {
           child: BlocBuilder<SignInPageBloc, SignInPageState>(
               builder: (context, state) {
             final bloc = context.read<SignInPageBloc>();
-            if (state is UserInfoState) {
-              print(state.personalInfo.name);
-              WidgetsBinding.instance.addPostFrameCallback((_) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (state is UserInfoState) {
+                print(state.personalInfo.name);
+
                 Navigator.of(context).pushNamed(
                   '/all_dialogs',
                 );
-              });
-            }
-            if (state is SignInPageErrorState) {
-              bloc.add(ResetEvent());
-              WidgetsBinding.instance.addPostFrameCallback((_) {
+              }
+              if (state is SignInPageErrorState) {
+                bloc.add(ResetEvent());
+
                 _showMyDialog(state.errorMessage);
-              });
-              print('+');
-            }
+
+                print('+');
+              }
+            });
             return ListView(
               children: [
                 Column(
