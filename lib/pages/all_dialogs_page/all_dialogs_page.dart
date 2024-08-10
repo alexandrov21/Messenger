@@ -1,9 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:messenger_app/app.dart';
+
 import 'package:messenger_app/bloc/all_dialogs_page/all_dialogs_page_state.dart';
-import 'package:messenger_app/mocks/all_dialogs_mock.dart';
 
 import '../../bloc/all_dialogs_page/all_dialogs_page_bloc.dart';
 import '../../bloc/all_dialogs_page/all_dialogs_page_event.dart';

@@ -62,9 +62,11 @@ class _MainPageState extends State<MainPage> {
             final bloc = context.read<SignInPageBloc>();
             if (state is UserInfoState) {
               print(state.personalInfo.name);
-              Navigator.of(context).pushNamed(
-                '/all_dialogs',
-              );
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.of(context).pushNamed(
+                  '/all_dialogs',
+                );
+              });
             }
             if (state is SignInPageErrorState) {
               bloc.add(ResetEvent());
