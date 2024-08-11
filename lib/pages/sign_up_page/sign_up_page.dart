@@ -104,7 +104,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                 enteringFullName: _fullNameController.text,
                                 enteringEmail: _emailController.text,
                                 enteringPassword: _passwordController.text,
-                                enteringConfirmPassword: _confirmPasswordController.text,
+                                enteringConfirmPassword:
+                                    _confirmPasswordController.text,
                               ));
                             }),
                           ),
@@ -158,8 +159,9 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _buildFullNameTextField() {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      controller: _fullNameController,
+      decoration: const InputDecoration(
         labelText: 'FULL NAME',
         labelStyle: TextStyles.textFieldLabelText,
         prefixIcon: Icon(
@@ -181,8 +183,9 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _buildEmailTextField() {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      controller: _emailController,
+      decoration: const InputDecoration(
         labelText: 'EMAIL',
         labelStyle: TextStyles.textFieldLabelText,
         prefixIcon: Icon(
@@ -204,8 +207,9 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _buildPasswordTextField() {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      controller: _passwordController,
+      decoration: const InputDecoration(
         labelText: 'PASSWORD',
         labelStyle: TextStyles.textFieldLabelText,
         prefixIcon: Icon(
@@ -227,8 +231,9 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _buildConfirmTextField() {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      controller: _confirmPasswordController,
+      decoration: const InputDecoration(
         labelText: 'CONFIRM PASSWORD',
         labelStyle: TextStyles.textFieldLabelText,
         prefixIcon: Icon(

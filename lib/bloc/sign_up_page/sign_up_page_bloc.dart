@@ -32,8 +32,8 @@ class SignUpPageBloc extends Bloc<SignUpPageEvent, SignUpPageState> {
     required String enteringPassword,
     required String enteringConfirmPassword,
   }) {
-    print(enteringConfirmPassword == SignUpMock.signUp.first.password);
-    if (enteringConfirmPassword == SignUpMock.signUp.first.password) {
+    if ((enteringConfirmPassword == enteringPassword) &&
+        enteringPassword.isNotEmpty) {
       return SignUpModel(
         enteringFullName,
         enteringEmail,

@@ -42,6 +42,7 @@ class _AllDialogsPageState extends State<AllDialogsPage> {
         appBar: AppBar(
           backgroundColor: Colors.orangeAccent,
           elevation: 0,
+          automaticallyImplyLeading: false,
           title: const Align(
             alignment: Alignment.center,
             child: Padding(
