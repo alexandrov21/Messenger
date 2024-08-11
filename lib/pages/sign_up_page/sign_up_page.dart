@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/bloc/sign_up_page/sign_up_page_state.dart';
 
-import '../../bloc/sign_in_page/sign_in_page_event.dart';
 import '../../bloc/sign_up_page/sign_up_page_bloc.dart';
+import '../../bloc/sign_up_page/sign_up_page_event.dart';
 import '../../utils/text_styles.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -64,11 +64,10 @@ class _SignUpPageState extends State<SignUpPage> {
       child: Scaffold(
         body: SafeArea(
           child: BlocBuilder<SignUpPageBloc, SignUpPageState>(
-            builder: (context, state){
+            builder: (context, state) {
               final bloc = context.read<SignUpPageBloc>();
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 if (state is UserFullInfoState) {
-
                   Navigator.of(context).pushNamed(
                     '/all_dialogs',
                   );
@@ -81,42 +80,46 @@ class _SignUpPageState extends State<SignUpPage> {
                   print('+');
                 }
               });
+              return ListView(
+                children: [
+                  Stack(
+                    children: [
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 120,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 28,
+                            ),
+                            child: _buildCreateAccountInfo(),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 28,
+                            ),
+                            child: _buildSignUpButton(),
+                          ),
+                          const SizedBox(
+                            height: 84,
+                          ),
+                          _buildSignInQuestion(),
+                        ],
+                      ),
+                      _buildPositionedBackButton(),
+                    ],
+                  ),
+                ],
+              );
             },
-            child: ListView(
-              children: [
-                Stack(
-                  children: [
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: 120,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 28,),
-                          child: _buildCreateAccountInfo(),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 28,),
-                          child: _buildSignUpButton(),
-                        ),
-                        const SizedBox(
-                          height: 84,
-                        ),
-                        _buildSignInQuestion(),
-                      ],
-                    ),
-                    _buildPositionedBackButton(),
-                  ],
-                ),
-              ],
-            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildCreateAccountInfo(){
+  Widget _buildCreateAccountInfo() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -147,7 +150,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildFullNameTextField(){
+  Widget _buildFullNameTextField() {
     return const TextField(
       decoration: InputDecoration(
         labelText: 'FULL NAME',
@@ -170,7 +173,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildEmailTextField(){
+  Widget _buildEmailTextField() {
     return const TextField(
       decoration: InputDecoration(
         labelText: 'EMAIL',
@@ -193,7 +196,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildPasswordTextField(){
+  Widget _buildPasswordTextField() {
     return const TextField(
       decoration: InputDecoration(
         labelText: 'PASSWORD',
@@ -216,7 +219,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildConfirmTextField(){
+  Widget _buildConfirmTextField() {
     return const TextField(
       decoration: InputDecoration(
         labelText: 'CONFIRM PASSWORD',
@@ -239,7 +242,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildSignUpButton(){
+  Widget _buildSignUpButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -280,7 +283,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  BoxDecoration _buildSignUpButtonGradient(){
+  BoxDecoration _buildSignUpButtonGradient() {
     return BoxDecoration(
       gradient: const LinearGradient(
         colors: [
@@ -298,7 +301,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildSignInQuestion(){
+  Widget _buildSignInQuestion() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -324,7 +327,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildPositionedBackButton(){
+  Widget _buildPositionedBackButton() {
     return Positioned(
       top: 8,
       left: 8,

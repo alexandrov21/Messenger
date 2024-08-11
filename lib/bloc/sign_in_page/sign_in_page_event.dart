@@ -10,4 +10,4 @@ class CheckingUserInfoEvent extends SignInPageEvent {
   });
 }
 
-class ResetEvent extends SignInPageEvent{}
+class ResetEvent extends SignInPageEvent {}

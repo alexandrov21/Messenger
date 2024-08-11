@@ -8,19 +8,21 @@ import '../../models/sign_up_model.dart';
 class SignUpPageBloc extends Bloc<SignUpPageEvent, SignUpPageState> {
   SignUpPageBloc() : super(SignUpPageEmptyState()) {
     on<CheckingFullUserInfoEvent>((event, emit) {
-      final fullInfo = _checkConfirmPassword(enteringFullName: event.enteringFullName,
+      final fullInfo = _checkConfirmPassword(
+        enteringFullName: event.enteringFullName,
         enteringEmail: event.enteringEmail,
         enteringPassword: event.enteringPassword,
-        enteringConfirmPassword: event.enteringConfirmPassword,);
+        enteringConfirmPassword: event.enteringConfirmPassword,
+      );
       if (fullInfo == null) {
         emit(SignUpPageErrorState('the password isnt confirm'));
-      } else if(fullInfo is SignUpModel){
+      } else {
         emit(UserFullInfoState(fullInfo));
       }
     });
 
     on<ResetEvent>((event, emit) {
-      emit (SignUpPageEmptyState());
+      emit(SignUpPageEmptyState());
     });
   }
 
@@ -31,7 +33,11 @@ class SignUpPageBloc extends Bloc<SignUpPageEvent, SignUpPageState> {
     required String enteringConfirmPassword,
   }) {
     if (enteringConfirmPassword == SignUpMock.signUp.first.password) {
-      return SignUpModel(enteringFullName, enteringEmail, enteringPassword,);
+      return SignUpModel(
+        enteringFullName,
+        enteringEmail,
+        enteringPassword,
+      );
     }
     return null;
   }
