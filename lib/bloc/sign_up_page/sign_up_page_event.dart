@@ -6,12 +6,12 @@ class CheckingFullUserInfoEvent extends SignUpPageEvent {
   final String enteringPassword;
   final String enteringConfirmPassword;
 
-  CheckingFullUserInfoEvent(
-    this.enteringFullName,
-    this.enteringEmail,
-    this.enteringPassword,
-    this.enteringConfirmPassword,
-  );
+  CheckingFullUserInfoEvent({
+    required this.enteringFullName,
+    required this.enteringEmail,
+    required this.enteringPassword,
+    required this.enteringConfirmPassword,
+  });
 }
 
-class ResetEvent extends SignUpPageEvent{}
+class ResetEvent extends SignUpPageEvent {}

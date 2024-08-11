@@ -99,7 +99,14 @@ class _SignUpPageState extends State<SignUpPage> {
                             padding: const EdgeInsets.symmetric(
                               horizontal: 28,
                             ),
-                            child: _buildSignUpButton(),
+                            child: _buildSignUpButton(() {
+                              bloc.add(CheckingFullUserInfoEvent(
+                                enteringFullName: _fullNameController.text,
+                                enteringEmail: _emailController.text,
+                                enteringPassword: _passwordController.text,
+                                enteringConfirmPassword: _confirmPasswordController.text,
+                              ));
+                            }),
                           ),
                           const SizedBox(
                             height: 84,
@@ -242,7 +249,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildSignUpButton() {
+  Widget _buildSignUpButton(VoidCallback onSignUpPressed) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -262,7 +269,9 @@ class _SignUpPageState extends State<SignUpPage> {
               shadowColor: Colors.transparent,
               elevation: 0,
             ),
-            onPressed: () {},
+            onPressed: () {
+              onSignUpPressed.call();
+            },
             child: const Row(
               children: [
                 Text(
