@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:messenger_app/bloc/sign_up_page/sign_up_page_state.dart';
 
+import '../../bloc/sign_in_page/sign_in_page_event.dart';
+import '../../bloc/sign_up_page/sign_up_page_bloc.dart';
 import '../../utils/text_styles.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -10,37 +14,103 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  late final TextEditingController _fullNameController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
+  late final TextEditingController _confirmPasswordController;
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          children: [
-            Stack(
-              children: [
-                Column(
-                  children: [
-                    const SizedBox(
-                      height: 120,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 28,),
-                      child: _buildCreateAccountInfo(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 28,),
-                      child: _buildSignUpButton(),
-                    ),
-                    const SizedBox(
-                      height: 84,
-                    ),
-                    _buildSignInQuestion(),
-                  ],
-                ),
-                _buildPositionedBackButton(),
-              ],
+  void initState() {
+    super.initState();
+    _fullNameController = TextEditingController();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _confirmPasswordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _showMyDialog(String errorMessage) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(errorMessage),
+          actions: [
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
           ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<SignUpPageBloc>(
+      create: (context) => SignUpPageBloc(),
+      child: Scaffold(
+        body: SafeArea(
+          child: BlocBuilder<SignUpPageBloc, SignUpPageState>(
+            builder: (context, state){
+              final bloc = context.read<SignUpPageBloc>();
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (state is UserFullInfoState) {
+
+                  Navigator.of(context).pushNamed(
+                    '/all_dialogs',
+                  );
+                }
+                if (state is SignUpPageErrorState) {
+                  bloc.add(ResetEvent());
+
+                  _showMyDialog(state.errorMessage);
+
+                  print('+');
+                }
+              });
+            },
+            child: ListView(
+              children: [
+                Stack(
+                  children: [
+                    Column(
+                      children: [
+                        const SizedBox(
+                          height: 120,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 28,),
+                          child: _buildCreateAccountInfo(),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 28,),
+                          child: _buildSignUpButton(),
+                        ),
+                        const SizedBox(
+                          height: 84,
+                        ),
+                        _buildSignInQuestion(),
+                      ],
+                    ),
+                    _buildPositionedBackButton(),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

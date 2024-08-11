@@ -6,9 +6,21 @@ import 'package:messenger_app/mocks/sign_up_mock.dart';
 import '../../models/sign_up_model.dart';
 
 class SignUpPageBloc extends Bloc<SignUpPageEvent, SignUpPageState> {
-  SignUpPageBloc() : super(SignInPageEmptyState()) {
+  SignUpPageBloc() : super(SignUpPageEmptyState()) {
     on<CheckingFullUserInfoEvent>((event, emit) {
-      final fullInfo = _checkConfirmPassword()
+      final fullInfo = _checkConfirmPassword(enteringFullName: event.enteringFullName,
+        enteringEmail: event.enteringEmail,
+        enteringPassword: event.enteringPassword,
+        enteringConfirmPassword: event.enteringConfirmPassword,);
+      if (fullInfo == null) {
+        emit(SignUpPageErrorState('the password isnt confirm'));
+      } else if(fullInfo is SignUpModel){
+        emit(UserFullInfoState(fullInfo));
+      }
+    });
+
+    on<ResetEvent>((event, emit) {
+      emit (SignUpPageEmptyState());
     });
   }
 

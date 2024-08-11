@@ -18,4 +18,4 @@ class SignUpPageErrorState extends SignUpPageState {
   );
 }
 
-class SignInPageEmptyState extends SignUpPageState {}
+class SignUpPageEmptyState extends SignUpPageState {}
