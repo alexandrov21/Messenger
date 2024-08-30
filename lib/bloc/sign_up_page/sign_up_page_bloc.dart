@@ -13,6 +13,7 @@ class SignUpPageBloc extends Bloc<SignUpPageEvent, SignUpPageState> {
         enteringEmail: event.enteringEmail,
         enteringPassword: event.enteringPassword,
         enteringConfirmPassword: event.enteringConfirmPassword,
+
       );
       if (fullInfo == null) {
         emit(SignUpPageErrorState('the password isnt confirm'));

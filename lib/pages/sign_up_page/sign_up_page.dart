@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/bloc/sign_up_page/sign_up_page_state.dart';
+import 'package:messenger_app/users_auth/firebase_auth_implementation/firebase_auth_services.dart';
 
 import '../../bloc/sign_up_page/sign_up_page_bloc.dart';
 import '../../bloc/sign_up_page/sign_up_page_event.dart';
@@ -14,6 +16,9 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+
+  final FirebaseAuthServices _auth = FirebaseAuthServices();
+
   late final TextEditingController _fullNameController;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
@@ -107,6 +112,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 enteringConfirmPassword:
                                     _confirmPasswordController.text,
                               ));
+
                             }),
                           ),
                           const SizedBox(
@@ -276,6 +282,8 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             onPressed: () {
               onSignUpPressed.call();
+              _signUp();
+
             },
             child: const Row(
               children: [
@@ -358,4 +366,10 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
+
+  void _signUp() async {
+
+    User? user = await _auth.signUpWithEmailAndPassword('alex@gmail.com', '12345Aa');
+  }
+
 }
